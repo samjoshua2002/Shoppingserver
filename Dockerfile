@@ -1,5 +1,8 @@
-# Use the official Maven image with OpenJDK 17 to build the project
-FROM maven:3.10.1-openjdk-17 AS build
+# Use OpenJDK 17 base image for building the project
+FROM openjdk:17 AS build
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven
 
 # Set the working directory
 WORKDIR /app
@@ -11,7 +14,7 @@ COPY src /app/src
 # Build the project (WAR file)
 RUN mvn clean package -DskipTests
 
-# Use the official OpenJDK 17 image to run the application
+# Use the same OpenJDK 17 image to run the application
 FROM openjdk:17-jdk-slim
 
 # Set the working directory
