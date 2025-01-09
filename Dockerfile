@@ -1,5 +1,5 @@
 # Use the official Maven image to build the project
-FROM maven:3.10.1-openjdk-21 AS build
+FROM maven:3.10.1-openjdk AS build
 
 # Set the working directory
 WORKDIR /app
