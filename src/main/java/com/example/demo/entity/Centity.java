@@ -60,7 +60,7 @@ public class Centity {
 
 	public Centity() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 

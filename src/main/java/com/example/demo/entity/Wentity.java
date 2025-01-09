@@ -71,7 +71,7 @@ public class Wentity {
 
 	public Wentity() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	
