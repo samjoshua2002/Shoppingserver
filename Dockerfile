@@ -1,8 +1,10 @@
-# Use OpenJDK 17 base image for building the project
-FROM openjdk:17 AS build
+# Use OpenJDK 17 slim base image for building the project
+FROM openjdk:17-slim AS build
 
-# Install Maven
-RUN apt-get update && apt-get install -y maven
+# Install apt-get and Maven
+RUN apt-get update && apt-get install -y apt-transport-https curl && \
+    curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y maven
 
 # Set the working directory
 WORKDIR /app
