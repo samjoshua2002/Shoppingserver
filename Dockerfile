@@ -1,5 +1,5 @@
-# Use the official Maven image to build the project with OpenJDK 21
-FROM maven:3.8.6-openjdk AS build
+# Use the official Maven image to build the project
+FROM maven:3.8.6 AS build
 
 # Install OpenJDK 21
 RUN apt-get update && apt-get install -y openjdk-21-jdk
