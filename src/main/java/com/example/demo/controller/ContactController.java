@@ -33,9 +33,10 @@ public class ContactController {
         String body = "Name: " + contactMessage.getName() +
                       "\nEmail: " + contactMessage.getEmail() + // Sender's email
                       "\nMessage: " + contactMessage.getMessage();
-
+            String to = "trendixauth@gmail.com";
         // Send mail to the username configured in application.properties
-        emailService.sendMail( contactMessage.getEmail(), body, subject); // To: username
+        emailService.sendMail( contactMessage.getEmail(),to, body, subject);
+        emailService.sendReply(contactMessage.getEmail(),contactMessage.getName()); // To: username
 
         return ResponseEntity.ok("Message submitted successfully!");
     }
