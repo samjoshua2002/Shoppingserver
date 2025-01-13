@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import com.example.demo.entity.Aentity;
 import com.example.demo.entity.Pentity;
@@ -38,6 +38,7 @@ public class Wcontroller {
 
   
     @PostMapping("/addwishlist/{uid}/{pid}")
+    @SuppressWarnings("CallToPrintStackTrace")
     public ResponseEntity<String> addToWishlist(@PathVariable long uid, @PathVariable long pid) {
         Optional<Aentity> user = arepo.findById(uid);
         Optional<Pentity> product = prepo.findById(pid);
@@ -77,6 +78,7 @@ public class Wcontroller {
 
     
     @GetMapping("/getproducts/{uid}")
+    @SuppressWarnings("CallToPrintStackTrace")
     public ResponseEntity<List<Pentity>> getProducts(@PathVariable long uid) {
         Optional<Aentity> user = arepo.findById(uid);
 
@@ -97,6 +99,7 @@ public class Wcontroller {
     }
 
     @DeleteMapping("/delwishlist/{uid}/{pid}")
+    @SuppressWarnings("CallToPrintStackTrace")
     public ResponseEntity<String> removeFromWishlist(@PathVariable long uid, @PathVariable long pid) {
         try {
             Optional<Wentity> wishlistItem = wrepo.findByAentityUseridAndPentityId(uid, pid);

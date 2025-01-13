@@ -9,15 +9,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-
-import com.example.demo.repository.Arepository;
-
 @Service
 
 public class OtpService {
 	
-	@Autowired
-	private Arepository arepo;
 
 	@Autowired
 	private JavaMailSender mailsender;

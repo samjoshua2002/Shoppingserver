@@ -1,14 +1,22 @@
 package com.example.demo.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.*;
-
 import java.io.IOException;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Pentity {
@@ -29,7 +37,6 @@ public class Pentity {
     @Column(name = "image_url")
     private String imageUrl;
 
-
     private String category;
     private String type;
 
@@ -41,19 +48,25 @@ public class Pentity {
     // Store sizes as a JSON string in the same table
     @Lob
     @Column(name = "sizes")
-    private String sizes;  // This will be stored as a JSON string in the database
+    @JsonProperty("sizes")
+    private String sizes; // This will be stored as a JSON string in the database
 
-    @OneToMany(mappedBy = "pentity", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pentity", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private Set<Wentity> wishlists;
 
     // Default sizes as a list
     private static final List<String> DEFAULT_SIZES = Arrays.asList("Medium", "Small", "Large");
 
+    // Default constructor
+    public Pentity() {
+        this.sizes = toJson(DEFAULT_SIZES); // Set default sizes in constructor
+    }
+
     // Constructor with sizes
     public Pentity(Long id, String title, String brand, int originalPrice, int discountedPrice, String imageUrl,
-                     String category, String type, String description, int rating, List<String> sizes,
-                    Set<Wentity> wishlists) {
+                   String category, String type, String description, int rating, List<String> sizes,
+                   Set<Wentity> wishlists) {
         this.id = id;
         this.title = title;
         this.brand = brand;
@@ -65,13 +78,8 @@ public class Pentity {
         this.description = description;
         this.rating = rating;
         // Store sizes as JSON string in the database
-        this.sizes = sizes != null && !sizes.isEmpty() ? toJson(sizes) : toJson(DEFAULT_SIZES);  // Use default sizes if none provided
+        this.sizes = sizes != null && !sizes.isEmpty() ? toJson(sizes) : toJson(DEFAULT_SIZES); // Use default sizes if none provided
         this.wishlists = wishlists;
-    }
-
-    // Default constructor
-    public Pentity() {
-        this.sizes = toJson(DEFAULT_SIZES); // Set default sizes in constructor
     }
 
     // Getters and setters
@@ -123,8 +131,6 @@ public class Pentity {
         this.imageUrl = imageUrl;
     }
 
-
-
     public String getCategory() {
         return category;
     }
@@ -161,8 +167,20 @@ public class Pentity {
         return sizes;
     }
 
-    public void setSizes(List<String> sizes) {
-        this.sizes = sizes != null && !sizes.isEmpty() ? toJson(sizes) : toJson(DEFAULT_SIZES); // Use default sizes if none provided
+    @SuppressWarnings("unchecked")
+    public void setSizes(Object sizes) {
+        if (sizes instanceof List) {
+            this.sizes = toJson((List<String>) sizes);
+        } else if (sizes instanceof String string) {
+            this.sizes = string;
+        } else {
+            throw new IllegalArgumentException("Invalid sizes format");
+        }
+    }
+
+    @JsonProperty("sizes")
+    public List<String> getSizesList() {
+        return fromJson(this.sizes);
     }
 
     public Set<Wentity> getWishlists() {
@@ -184,10 +202,11 @@ public class Pentity {
     }
 
     // Helper method to convert JSON string to List<String>
-    public List<String> getSizesList() {
+    @SuppressWarnings("unchecked")
+    private List<String> fromJson(String json) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(sizes, List.class);
+            return objectMapper.readValue(json, List.class);
         } catch (IOException e) {
             throw new RuntimeException("Error converting JSON to sizes list", e);
         }

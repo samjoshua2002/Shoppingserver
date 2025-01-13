@@ -60,7 +60,6 @@ public class Acontroller {
 
 	        return "Registered successfully";
 	    } catch (Exception e) {
-	        e.printStackTrace();
 	        return "An error occurred during registration.";
 	    }
 	}
@@ -93,6 +92,7 @@ public class Acontroller {
 	}
 	
 	@GetMapping("/login/{mail}/{pass}")
+        @SuppressWarnings("CallToPrintStackTrace")
 	public String login(@PathVariable String mail,@PathVariable String pass) {
 		try {
 			Optional<Aentity> user=arepo.findByUseremail(mail);
@@ -126,7 +126,6 @@ public class Acontroller {
 				return "email not found?..";
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return null;
 	}

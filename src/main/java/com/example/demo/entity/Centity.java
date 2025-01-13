@@ -26,12 +26,16 @@ public class Centity {
 	@JsonIgnore
 	@JoinColumn(name="id")
 	private Pentity pentity;
+	
+	private String size;
 
-	public long getWid() {
+	private int quantity;
+
+	public long getCid() {
 		return cid;
 	}
 
-	public void setWid(long cid) {
+	public void setCid(long cid) {
 		this.cid = cid;
 	}
 
@@ -51,11 +55,29 @@ public class Centity {
 		this.pentity = pentity;
 	}
 
-	public Centity(long cid, Aentity aentity, Pentity pentity) {
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public Centity(long cid, Aentity aentity, Pentity pentity, String size, int quantity) {
 		super();
 		this.cid = cid;
 		this.aentity = aentity;
 		this.pentity = pentity;
+		this.size = size;
+		this.quantity = quantity;
 	}
 
 	public Centity() {
@@ -63,8 +85,7 @@ public class Centity {
 		
 	}
 	
-
 	
 	
-
+	
 }

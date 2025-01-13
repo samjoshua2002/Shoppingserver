@@ -3,7 +3,6 @@ package com.example.demo.service;
 
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +16,7 @@ public class Pservice {
 	@Autowired
 	private Prepository prepo;
 	
+        @SuppressWarnings("CallToPrintStackTrace")
 	public String addProduct(Pentity product) {
 		try {
 			prepo.save(product);
@@ -28,6 +28,7 @@ public class Pservice {
 		
 	}
 	
+        @SuppressWarnings("CallToPrintStackTrace")
 	public void updateProduct(long productid, Pentity product) {
     try {
         // Fetch the product from the database
@@ -58,6 +59,7 @@ public class Pservice {
 }
 
 	
+        @SuppressWarnings("CallToPrintStackTrace")
 	public boolean deleteProduct(long productid) {
 	    try {
 	        Optional<Pentity> uproduct = prepo.findById(productid);
@@ -73,9 +75,11 @@ public class Pservice {
 	    }
 	}
 	
+        @SuppressWarnings("CallToPrintStackTrace")
 	public Pentity getProduct(long productid) {
 		 try {
-			 Pentity product=prepo.getOne(productid);
+			 @SuppressWarnings("deprecation")
+			Pentity product=prepo.getOne(productid);
 			 
 		        return product;
 		            
