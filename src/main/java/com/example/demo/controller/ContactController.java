@@ -14,7 +14,7 @@ import com.example.demo.service.EmailServiceContact;
 
 @RestController
 @RequestMapping("/contact")
-@CrossOrigin(origins = "http://localhost:3000") 
+@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.0.234:3000"})
 public class ContactController {
 
     @Autowired

@@ -23,7 +23,7 @@ import com.example.demo.repository.Crepository;
 import com.example.demo.repository.Prepository;
 
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.0.234:3000"})
 @RequestMapping("/cart")
 public class Ccontroller {
 

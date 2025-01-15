@@ -23,7 +23,7 @@ import com.example.demo.repository.Prepository;
 import com.example.demo.repository.Wrepository;
 
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.0.234:3000"})
 @RequestMapping("/wishlist")
 public class Wcontroller {
 
