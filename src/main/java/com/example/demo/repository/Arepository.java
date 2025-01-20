@@ -10,6 +10,8 @@ import com.example.demo.entity.Aentity;
 @Repository
 
 public interface Arepository extends JpaRepository<Aentity,Long> {
-	Optional<Aentity> findByUseremail(String useremail);
 	Optional<Aentity> findByUseremailOrUsernumber(String useremail,long usernumber);
+	Optional<Aentity> findByUserid(long userid);
+	Optional<Aentity> findByUseremail(String useremail);
+
 }
