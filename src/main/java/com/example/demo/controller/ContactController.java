@@ -40,4 +40,7 @@ public class ContactController {
 
         return ResponseEntity.ok("Message submitted successfully!");
     }
+
+   
+
 }

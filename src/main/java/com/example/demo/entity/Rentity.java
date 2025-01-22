@@ -1,87 +1,83 @@
 package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Rentity {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long rid;
-	
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name="userid")
-	private Aentity aentity;
-	
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name="id")
-	private Pentity pentity;
-	
-	private String comment;
 
-	private int rating;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long rid;
 
-	public long getRid() {
-		return rid;
-	}
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "userid")
+    private Aentity aentity;
 
-	public void setRid(long rid) {
-		this.rid = rid;
-	}
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "id")
+    private Pentity pentity;
 
-	public Aentity getAentity() {
-		return aentity;
-	}
+    private String comment;
 
-	public void setAentity(Aentity aentity) {
-		this.aentity = aentity;
-	}
+    @Temporal(TemporalType.DATE) 
+    private Date date;
 
-	public Pentity getPentity() {
-		return pentity;
-	}
+    // Getters and Setters
+    public long getRid() {
+        return rid;
+    }
 
-	public void setPentity(Pentity pentity) {
-		this.pentity = pentity;
-	}
+    public void setRid(long rid) {
+        this.rid = rid;
+    }
 
-	public String getComment() {
-		return comment;
-	}
+    public Aentity getAentity() {
+        return aentity;
+    }
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+    public void setAentity(Aentity aentity) {
+        this.aentity = aentity;
+    }
 
-	public int getRating() {
-		return rating;
-	}
+    public Pentity getPentity() {
+        return pentity;
+    }
 
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
+    public void setPentity(Pentity pentity) {
+        this.pentity = pentity;
+    }
 
-	public Rentity(long rid, Aentity aentity, Pentity pentity, String comment, int rating) {
-		super();
-		this.rid = rid;
-		this.aentity = aentity;
-		this.pentity = pentity;
-		this.comment = comment;
-		this.rating = rating;
-	}
+    public String getComment() {
+        return comment;
+    }
 
-	public Rentity() {
-		super();
-	
-	}
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    // Constructors
+    public Rentity(long rid, Aentity aentity, Pentity pentity, String comment, Date date) {
+        super();
+        this.rid = rid;
+        this.aentity = aentity;
+        this.pentity = pentity;
+        this.comment = comment;
+        this.date = date;
+    }
+
+    public Rentity() {
+        super();
+    }
 }

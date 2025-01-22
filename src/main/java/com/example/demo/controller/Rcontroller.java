@@ -57,14 +57,13 @@ public class Rcontroller {
     @GetMapping("/getreview/{pid}")
     public List<Rdto> getReviewsWithUsernames(@PathVariable long pid) {
         List<Rentity> review = rrepo.findByPentityId(pid);
-
         List<Rdto> userComments = review.stream()
                 .map(reviews -> {
                     // Fetch the username using the userid
                     String username = uservice.getusername(reviews.getAentity().getUserid());
                     
                     // Return a DTO with username and comment
-                    return new Rdto(username, reviews.getComment());
+                    return new Rdto(username, reviews.getComment(), reviews.getDate());
                 })
                 .collect(Collectors.toList());
 
