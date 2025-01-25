@@ -25,7 +25,7 @@ import com.example.demo.repository.Rrepository;
 import com.example.demo.service.Userservice;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.0.234:3000","https://trendix-seven.vercel.app/"})
 @RequestMapping("/review")
 public class Rcontroller {
 	
