@@ -6,9 +6,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,6 +56,32 @@ public class Rcontroller {
          }
     }
     
+    @DeleteMapping("/delreview/{rid}")
+    public String delreview(@PathVariable long rid) {
+    	Optional<Rentity> review = rrepo.findById(rid);
+         if(review.isPresent()) {
+        	 rrepo.delete(review.get());
+         return "deleted";
+         }else {
+        	 return "error"; 
+         }
+    }
+    
+    @PutMapping("/changereview/{rid}")
+    public String changereview(@PathVariable long rid,@RequestBody Rentity rentity) {
+    	 Optional<Rentity> review = rrepo.findById(rid);
+         if (review.isPresent()) 
+         {
+            	 Rentity changing=review.get();
+            	 changing.setComment(rentity.getComment());
+            	 changing.setDate(rentity.getDate());
+            	 rrepo.save(changing);
+         return "changed";
+         }else {
+        	 return "error"; 
+         }
+    }
+    
     @GetMapping("/getreview/{pid}")
     public List<Rdto> getReviewsWithUsernames(@PathVariable long pid) {
         List<Rentity> review = rrepo.findByPentityId(pid);
@@ -63,7 +91,7 @@ public class Rcontroller {
                     String username = uservice.getusername(reviews.getAentity().getUserid());
                     
                     // Return a DTO with username and comment
-                    return new Rdto(username, reviews.getComment(), reviews.getDate());
+                    return new Rdto(username, reviews.getComment(), reviews.getDate(),reviews.getRid());
                 })
                 .collect(Collectors.toList());
 

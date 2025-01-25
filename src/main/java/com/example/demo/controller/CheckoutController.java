@@ -14,7 +14,7 @@ import com.example.demo.service.EmailServiceCheckout;
 
 @RestController
 @RequestMapping("/checkout")
-@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.0.234:3000"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.0.234:3000","https://trendix-seven.vercel.app/"})
 public class CheckoutController {
 
     @Autowired

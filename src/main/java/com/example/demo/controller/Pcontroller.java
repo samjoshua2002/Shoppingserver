@@ -22,7 +22,7 @@ import com.example.demo.service.Pservice;
 
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.0.234:3000"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.0.234:3000","https://trendix-seven.vercel.app/"})
 @RequestMapping("/product")
 
 public class Pcontroller {

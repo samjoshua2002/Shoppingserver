@@ -16,6 +16,7 @@ public interface Wrepository extends JpaRepository<Wentity, Long>{
 	
 	List<Wentity> findByAentityUserid(long userid);
 	
+	
 	Optional<Wentity> findByAentityUseridAndPentityId(long userid, long productid);
 
 }

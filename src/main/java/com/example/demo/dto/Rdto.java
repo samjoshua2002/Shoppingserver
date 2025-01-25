@@ -6,40 +6,69 @@ public class Rdto {
     private String username;
     private String comment;
     private Date date; 
+    private long id;
 
-    // Constructor
-    public Rdto(String username, String comment, Date date) {
-        this.username = username;
-        this.comment = comment;
-        this.date = date;
-    }
+   
 
-    // Getters and Setters
-    public String getUsername() {
-        return username;
-    }
+    public Rdto(String username, String comment, Date date, long id) {
+		super();
+		this.username = username;
+		this.comment = comment;
+		this.date = date;
+		this.id = id;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
-    public String getComment() {
-        return comment;
-    }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public Date getDate() {
-        return date;
-    }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
-    public Rdto() {
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+
+	public String getComment() {
+		return comment;
+	}
+
+
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+
+
+	public Date getDate() {
+		return date;
+	}
+
+
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+
+
+	public long getId() {
+		return id;
+	}
+
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+
+	public Rdto() {
         super();
     }
 }

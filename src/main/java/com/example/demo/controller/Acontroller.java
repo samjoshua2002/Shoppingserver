@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,18 +14,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Aentity;
+import com.example.demo.entity.Centity;
+import com.example.demo.entity.Rentity;
+import com.example.demo.entity.Wentity;
 import com.example.demo.repository.Arepository;
+import com.example.demo.repository.Crepository;
+import com.example.demo.repository.Rrepository;
+import com.example.demo.repository.Wrepository;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.OtpService;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.0.234:3000"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.0.234:3000","https://trendix-seven.vercel.app/"})
 @RequestMapping("/user")
 
 public class Acontroller {
 
     @Autowired
     private Arepository arepo;
+    @Autowired
+    private Crepository crepo;
+
+    @Autowired
+    private Wrepository wrepo;
+
+    @Autowired
+    private Rrepository rrepo;
+
+    
 
     @Autowired
     private EmailService emailservice;
@@ -146,6 +164,34 @@ public long getuserid(@PathVariable String mail) {
     System.out.println("No user found for email: " + mail);
     return 0;
 }
+@DeleteMapping("/deleteuser/{mail}")
+	public String deleteUser(@PathVariable String mail) {
+		try {
+			Optional<Aentity> user=arepo.findByUseremail(mail);
+			if(user.isPresent()) {
+				Aentity USER=user.get();
+				List<Centity> cartItems=crepo.findByAentityUserid(USER.getUserid());
+				if(!cartItems.isEmpty()) {
+					crepo.deleteAll(cartItems);
+				}
+				List<Wentity> wishItems=wrepo.findByAentityUserid(USER.getUserid());
+				if(!wishItems.isEmpty()) {
+					wrepo.deleteAll(wishItems);
+				}
+				List<Rentity> commentItems=rrepo.findByAentityUserid(USER.getUserid());
+				if(!commentItems.isEmpty()) {
+					rrepo.deleteAll(commentItems);
+				}
+				arepo.delete(USER);
+				return "User deleted ";
+			}else {
+				return "User not found";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 
 }
